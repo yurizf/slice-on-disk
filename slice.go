@@ -233,8 +233,8 @@ func (c *config[T]) Slice(ind ...int) ([]T, error) {
 }
 
 func (c *config[T]) Delete(start, n int) error {
-	if start+n >= c.Len() {
-		return fmt.Errorf("shift parameter %d is greater than slice length %d", n, c.Len())
+	if start < 0 || start+n > c.Len() {
+		return fmt.Errorf("invalid parameters start=%d, todelete=%d for the slice of length %d", start, n, c.Len())
 	}
 
 	if start < len(c.slice) {
